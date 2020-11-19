@@ -1,4 +1,5 @@
 streamlit==0.71.0
 pandas==1.1.4
+lxml==4.6.1 
 matplotlib
 seaborn
