@@ -30,3 +30,5 @@ nba_player_compare
 - pandas
 - seaborn
 
+## Reference
+- [How to Build a Basketball Player Data Explorer Web App in Python - Streamlit Tutorial #5](https://www.youtube.com/playlist?list=PLtqF5YXg7GLmCvTswG32NqQypOuYkPRUE)
