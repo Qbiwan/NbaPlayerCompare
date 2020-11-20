@@ -6,10 +6,10 @@ import seaborn as sns
 
 
 st.set_page_config(layout="wide")
-
 col1 = st.sidebar
-col2, col3 = st.beta_columns([3, 1])
-col2.title("Individual NBA Player Statistics")
+col2, col3 = st.beta_columns([7,3])
+
+col3.title("Individual NBA Player Statistics")
 
 with col1:
     st.subheader("User Input Features")
@@ -17,9 +17,9 @@ with col1:
     SelectedPlayer = st.multiselect("Player",
                                     config.PLAYER_LIST,
                                     config.PLAYER_LIST[:5]
-                                    )                              
+                                    )           
 
-with col2:
+with col3:
     @st.cache(allow_output_mutation=True)
     def load_data(url):
         html = pd.read_html(url, header=0)
@@ -45,13 +45,17 @@ dataframes_stacked = pd.concat(dataframes, axis=0)
 dataframes_stacked.to_csv('output.csv', index=False)
 dataframes_stacked = pd.read_csv('output.csv')
 
-col3.title("Player Comparison")
-with col3:
-    for stat in selected_stats:
-        st.subheader(config.GLOSSARY2[stat])
-        pivot = dataframes_stacked.pivot("Years In NBA", "Player Name", stat)
-        st.write(pivot)
-        with sns.axes_style("darkgrid"):
-            f, ax = plt.subplots(figsize=(7, 5))
-            ax = sns.lineplot(data=pivot)
-            st.pyplot(f)
+col2.title("Player Comparison")
+
+for stat in selected_stats:
+    col2.subheader(config.GLOSSARY2[stat])
+    pivot = dataframes_stacked.pivot("Years In NBA", "Player Name", stat)
+    col2.write(pivot)
+    with sns.axes_style("darkgrid"):
+        f, ax = plt.subplots(figsize=(5, 3))
+        ax = sns.lineplot(data=pivot)
+        plt.legend(fontsize='xx-small',
+                   title_fontsize='xx-small',
+                   loc='center left',
+                   bbox_to_anchor=(1, 0.5))
+        col2.pyplot(f)
